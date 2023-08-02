@@ -28,16 +28,37 @@ Shown above, we can see an overview of the Security Onion cluster collecting raw
 
 There are 3 Client Network switches each with a SPAN/Mirror port to show different areas of the network. Each Client switch feeds directly to an ingest monitoring port for a Sensor Node (Light Server). The data is then forwarded to the Manager and Search nodes for an enrichment process running through the Elasticsearch Stack (ELK).  
 
-The Heavy Resource server with ESXi houses a Manager Node and 3 Search nodes where the data after some parsing ultimately sits. The end user Security Analyst on their workstation runs queries in the Kibana GUI web page to pull data out of those processed Elasticsearch indexes, to return data in a visual format via tables, graphs, or other tools availible through the Kibana GUI. 
+The Heavy server with ESXi houses a Manager Node and 3 Search nodes where the data after some parsing ultimately sits. The end user Security Analyst on their workstation runs queries in the Kibana GUI web page to pull data out of those processed Elasticsearch indexes, to return data in a visual format via tables, graphs, or other tools availible through the Kibana GUI. 
 
 ## Data Flow
 
+In a simple explanation, the Sensor Nodes analyze the network traffic coming off the Switch SPAN/Mirror port with Zeek, Suricata, and Strelka, then sends it through the Elasticsearch stack ELK via Filebeat. It first passes through Logstash and Elasticsearch instances on the Manager Node, and then the Search Node's Logstash and finally stored in the Searh Node's Elasticsearch
+
+![data collection platform purple 2](https://github.com/gervguerrero/ESXi-Security-Onion-Passive-Collection-Platform/assets/140366635/2da5de2f-8153-4d3d-a3f2-0f40132eb52f)
+
+**For a more detailed explanation:**
+
+Once the traffic from the client network (from either SPAN/Mirror Port or In-Line TAP) is ingested into the Sensor Node first, a Berkley Packet Filter (BPF) can be applied that works with Suricata on the NIC level to filter unwanted traffic collection.
+
+Working with the NIC, the data stream reaches **AF_Packet**. AF_Packet is a Linux Kernel tool that allows direct packet capture from the NIC bypassing standard socket mechanisms. Security Onion uses it for high speed and low latency packet capture and creates 4 seperate data streams for each service being used:
+
+- **Zeek**: A metadata protocol analyzer and catergorizer 
+- **Suricata**: IDS/IPS tool with protocol/metadata analyzing features 
+- **Strelka**: File analysis framework for detecting malware using Yara rules 
+- **Steno**: Captures and stores the PCAP, working with Sensoroni to deliver the PCAP for queries in the S.O. Console
+
+**Sensoroni** is just the background service that structures the Security Onion (S.O.) Console web page, and also returns some data on the status of each Security Onion node to display in Grid and Grafana. It also works between the Sensor Node and Manager Node to return a specified timeline of PCAP that a Network Analyst queries in the S.O. Console. 
+
+Once each of the 4 services does their job with the data stream and their specific logs are created, **Filebeat** (a log shipper) sends those logs to the Manager Node to be transformed and mutated by the Manager Node's **Logstash**. 
+
+It will then pass through the Manager Node's Elasticsearch, and then gets redistributed by **Redis** to the Search Node's Logstash. It will then ultimately be indexed and stored by Elasticsearch in the Search Node as a database. 
+
+Now that the has been parsed, enriched, and stored in Elasticsearch in the Search Node, a Security Analyst using **Kibana** on their workstation will query that data. The Search Nodes will search their Elasticsearch database and answer the query delivering the information to Kibana. Kibana will display the information with visuals defined by the analyst, allowing for flexibl stream lined threat hunting.
+
+The **Curator** service on the search node is just to refine and manage elasticsearch indexes.
+
+Our services in each node is color coded based off experience with managing services in the past.
 
 
 
 
-In a simple explanation, the Sensor Nodes analyze the network traffic with Zeek, Suricata, and Yara rules and send it through the Elasticsearch stack ELK via Filebeat. It first passes through Logstash instances on the Manager Node and the Search node to enrich the data prior to being stored by Elasticsearch on the search nodes. 
-
-I will have an
-
-Once thos
