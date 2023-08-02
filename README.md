@@ -30,6 +30,8 @@ There are 3 Client Network switches each with a SPAN/Mirror port to show differe
 
 The Heavy server with ESXi houses a Manager Node and 3 Search nodes where the data after some parsing ultimately sits. The end user Security Analyst on their workstation runs queries in the Kibana GUI web page to pull data out of those processed Elasticsearch indexes, to return data in a visual format via tables, graphs, or other tools  available through the Kibana GUI. 
 
+To see how network defenders would use Kibana in Security Onion to identify network anomalies or threats, see my page: [LLMNR-NBT-NS-Poisoning-DETECTION](https://github.com/gervguerrero/LLMNR-NBT-NS-Poisoning-DETECTION).
+
 ## Data Flow
 
 In a simple explanation, the Sensor Nodes analyze the network traffic coming off the Switch SPAN/Mirror port with Zeek, Suricata, and Strelka, then sends it through the Elasticsearch stack ELK via Filebeat. It first passes through Logstash and Elasticsearch instances on the Manager Node, and then the Search Node's Logstash and finally stored in the Search Node's Elasticsearch
@@ -67,8 +69,6 @@ An example of a sensitive service in Security Onion is **Salt**.
 
 With Salt, engineers are expected to know how to manage and distribute changes to each SO node through Salt. There are many paths and directories with Salt, it can be tricky to manage properly. A change made to the Manager Node's Salt instance will relay those changes to any dependent Security Onion Nodes in the Distributed Build, which can break a Distributed Build cluster if not managed properly.  
 
-**Resources:**
-- [Official Security Onion 2.3 Documentation](https://docs.securityonion.net/en/2.3/#) 
 
 ## ESXi Security Onion Build Specs and Usage Case
 ![data collection platform purple](https://github.com/gervguerrero/ESXi-Security-Onion-Passive-Collection-Platform-/assets/140366635/fa6ad362-b50f-45a1-acc7-b10ea8f31acf)
@@ -116,3 +116,6 @@ Salt's configuration on the Manager Node handling the default PCAP limited a har
 The file path to this configuration is on the Manager Node: "/opt/so/saltstack/default/salt/pcap/files/config".
 
 Upon altering the config for PCAP, the change was replicated in the /opt/so/conf/steno/config on the Sensor Nodes  and immediately took effect after a restart of steno on the local nodes with “so-restart steno”.
+
+**Resources:**
+- [Official Security Onion 2.3 Documentation](https://docs.securityonion.net/en/2.3/#) 
