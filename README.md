@@ -59,6 +59,13 @@ The **Curator** service on the search node is just to refine and manage elastics
 
 Our services in each node is color coded based off experience with managing services in the past.
 
+- Blue = Services that may be altered by Security Engineers
+- Green = Services/Tools that are expected to be used or managed by Analysts and Security Engineers
+- Red = Services that should NOT be touched or carefully altered if needed.
 
+An example of a sensitive service in Security Onion is **Salt**.
 
+With Salt, engineers are expected to know how to manage and distribute changes to each SO node through Salt. There are many paths and directories with Salt, it can be tricky to manage properly. A change made to the Manager Node's Salt instance will relay those changes to any dependent Security Onion Nodes in the Distributed Build, which can break a Distributed Build cluster if not managed properly.  
 
+**Resources:**
+- [Official Security Onion 2.3 Documentation](https://docs.securityonion.net/en/2.3/#) 
