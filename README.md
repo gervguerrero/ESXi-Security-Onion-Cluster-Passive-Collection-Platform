@@ -24,4 +24,20 @@ The highlight of a Distributed Builds allows for greater scalability and perform
 
 ![data collection platform purple](https://github.com/gervguerrero/ESXi-Security-Onion-Passive-Collection-Platform-/assets/140366635/fa6ad362-b50f-45a1-acc7-b10ea8f31acf)
 
+Shown above, we can see an overview of the Security Onion cluster collecting raw network traffic from a client's network via SPAN/Mirror ports. 
 
+There are 3 Client Network switches each with a SPAN/Mirror port to show different areas of the network. Each Client switch feeds directly to an ingest monitoring port for a Sensor Node (Light Server). The data is then forwarded to the Manager and Search nodes for an enrichment process running through the Elasticsearch Stack (ELK).  
+
+The Heavy Resource server with ESXi houses a Manager Node and 3 Search nodes where the data after some parsing ultimately sits. The end user Security Analyst on their workstation runs queries in the Kibana GUI web page to pull data out of those processed Elasticsearch indexes, to return data in a visual format via tables, graphs, or other tools availible through the Kibana GUI. 
+
+## Data Flow
+
+
+
+
+
+In a simple explanation, the Sensor Nodes analyze the network traffic with Zeek, Suricata, and Yara rules and send it through the Elasticsearch stack ELK via Filebeat. It first passes through Logstash instances on the Manager Node and the Search node to enrich the data prior to being stored by Elasticsearch on the search nodes. 
+
+I will have an
+
+Once thos
