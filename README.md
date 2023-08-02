@@ -22,4 +22,6 @@ The highlight of a Distributed Builds allows for greater scalability and perform
 
 ## Customized ESXi Security Onion Build 
 
-focus and endgoal of this platform is to provide Cybersecurity Analysts a 
+![data collection platform purple](https://github.com/gervguerrero/ESXi-Security-Onion-Passive-Collection-Platform-/assets/140366635/fa6ad362-b50f-45a1-acc7-b10ea8f31acf)
+
+
