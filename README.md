@@ -76,6 +76,10 @@ With Salt, engineers are expected to know how to manage and distribute changes t
 ### Inventory 
 
 **Heavy Server - VM Hosting Server. Resource intensive for Manager and Search Nodes.** 
+
+![image](https://github.com/gervguerrero/ESXi-Security-Onion-Cluster-Passive-Collection-Platform/assets/140366635/d00fa676-b709-41b0-b224-80c898356c64)
+
+
 - Dual Xeon 6138 CPUs, 20 Cores Each (80 Total threads)
 - 512 GB RAM
 - 7.68 TB SSDs x 12 (92 TB Total, RAID 6 Setup)
@@ -86,6 +90,9 @@ With Salt, engineers are expected to know how to manage and distribute changes t
 - VGA Connector
 
 **Light Server - Raw data collection/analyzer, stores PCAP.**
+
+![image](https://github.com/gervguerrero/ESXi-Security-Onion-Cluster-Passive-Collection-Platform/assets/140366635/9379ce2f-ef7f-4017-b3a8-a79597460bcc)
+
 - Xeon-D1587 CPU, 16 Cores (32 Threads)
 - 128 GB RAM
 - 7.68 x 4 TB SSDs (30.72 TB Total, RAID 5 Setup)
@@ -95,8 +102,15 @@ With Salt, engineers are expected to know how to manage and distribute changes t
 
 **Standard Managed Switch.**
 
+![image](https://github.com/gervguerrero/ESXi-Security-Onion-Cluster-Passive-Collection-Platform/assets/140366635/14e3ee92-4eb8-4a4d-bb98-63f7eb5b0f95)
+
+
 **Optional Based On Sensor Strategy/Data Collection Plan: Gigamon GTAP A Series GTP ASF01**
 **Provides completely passive full duplex monitoring and absolute fault tolerance.** 
+
+![image](https://github.com/gervguerrero/ESXi-Security-Onion-Cluster-Passive-Collection-Platform/assets/140366635/8b97d085-4ed0-422d-85fe-e42eabd2f63d)
+
+
 - 4 x 1 GbE Ports
 - 2 TAP Points
 - Fail Open, Power over Ethernet
